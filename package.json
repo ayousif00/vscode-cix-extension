@@ -1,8 +1,8 @@
 {
   "name": "cix-language-support",
   "displayName": "CIX Language Support",
-  "description": "Syntax highlighting and language support for CIX (Computer Integrated eXchange) files used in CNC machining",
-  "version": "1.0.0",
+  "description": "Comprehensive syntax highlighting and language support for CIX (Computer Integrated eXchange) files with 73+ commands for BIESSE CNC machining",
+  "version": "1.1.0",
   "publisher": "your-publisher-name",
   "engines": {
     "vscode": "^1.74.0"

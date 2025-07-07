@@ -2,6 +2,38 @@
 
 All notable changes to the "CIX Language Support" extension will be documented in this file.
 
+## [1.1.0] - 2024-01-07
+
+### Added
+- **Comprehensive Command Support**: Added support for all 73+ CIX commands from official BIESSE documentation
+- **Enhanced Syntax Highlighting**: Categorized highlighting for different command types:
+  - Geometry commands (GEO, GEOTEXT, OFFGEO)
+  - Drawing commands (CIRCLE_*, LINE_*, ARC_*, etc.)
+  - Machining commands (ROUT, BG, CUT_*, INSERT, etc.)
+  - Positioning commands (WAIT, WT*, WF*)
+- **Advanced Parameter Categorization**: 100+ parameters organized by function:
+  - Coordinate parameters (X, Y, Z, XE, YE, etc.)
+  - Tool parameters (TNM, TTP, TCL, etc.)
+  - Machining parameters (DP, WSP, RSP, etc.)
+  - Control parameters (RTY, NRP, CRC, etc.)
+- **Complete Value Enumerations**: Support for all CIX enum values:
+  - Tool types (drilling, routing, cutting)
+  - Repetition types (rpNO, rpX, rpY, etc.)
+  - Direction values (dirCW, dirCCW)
+  - Correction types and system values
+- **Comprehensive Documentation**: Added detailed command reference with examples
+- **Enhanced Examples**: More realistic CIX code examples with proper parameter usage
+
+### Improved
+- **TextMate Grammar**: Completely restructured for better command categorization
+- **README Documentation**: Expanded with comprehensive parameter reference
+- **Command Examples**: Added boring, geometry, and advanced routing examples
+
+### Technical
+- Updated syntax highlighting rules to match official CIX specification
+- Added support for all BIESSE machine-specific parameters
+- Improved parameter validation patterns
+
 ## [1.0.0] - 2024-01-07
 
 ### Added

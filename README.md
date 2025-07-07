@@ -55,14 +55,23 @@ PARAM,NAME=DIA,VALUE=20
 PARAM,NAME=TNM,VALUE="FRESAD20"
 ```
 
-#### 3. **Macros/Commands**
-Machining operations:
-- `ROUT` - Routing operations
-- `BG` - Boring operations
-- `LABEL` - Labeling operations
-- `START_POINT` - Path start point
-- `LINE_EP` - Line endpoint
-- `ARC_EPRA` - Arc with endpoint, radius, and angle
+#### 3. **Command Categories** (73+ commands total)
+**Geometry Commands:**
+- `GEO`, `GEOTEXT`, `OFFGEO` - Geometry definition and manipulation
+
+**Drawing Commands:**
+- `CIRCLE_3P`, `CIRCLE_CR`, `ELLIPSE`, `OVAL`, `STAR` - Shape creation
+- `START_POINT`, `LINE_EP`, `ARC_EPRA`, `ENDPATH` - Path definition
+
+**Machining Commands:**
+- `ROUT`, `ROUTG` - Routing/milling operations
+- `BG`, `BH`, `BV`, `BCA`, `BCL` - Boring operations  
+- `CUT_F`, `CUT_G`, `CUT_GEO` - Cutting operations
+- `INSERT`, `POCK`, `TT` - Insertion and pocketing
+
+**Positioning Commands:**
+- `WAIT`, `WFC`, `WFG`, `WFL` - Workpiece positioning
+- `WTPLANE`, `WTCARRIAGE`, `WTUNICLAMP` - Work table control
 
 #### 4. **Data Types**
 - **Numbers**: `800`, `5.0`, `-10.5`
@@ -98,30 +107,56 @@ Single-line comments start with `-`:
 3. Use Ctrl+/ to toggle line comments
 4. Use folding controls to collapse/expand code blocks
 
-## Common CIX Parameters
+## Comprehensive CIX Parameters (100+ parameters)
+
+### Coordinate Parameters
+- `X`, `Y`, `Z` - Position coordinates
+- `XE`, `YE`, `ZE` - End coordinates  
+- `XS`, `YS`, `ZS` - Start coordinates
+- `XC`, `YC` - Center coordinates
+- `XI`, `YI` - Incremental coordinates
+- `XRC`, `YRC` - Repetition center coordinates
+
+### Geometry Parameters
+- `R` - Radius
+- `DIA` - Diameter
+- `L` - Length
+- `ANG` - Angle
+- `CRN` - Number of corners
+- `GID` - Geometry identification
+- `ID` - Machining operation identification
+- `LAY` - Layer identification string
+
+### Tool Parameters
+- `TNM` - Tool name/code
+- `TTP` - Tool type (0-3 for drilling, 100-103 for routing, 200-251 for cutting)
+- `TCL` - Tool class (0=drilling, 1=routing, 2=cutting)
+- `AGG` - Aggregate identification
+- `SPI` - Spindle
+- `TOS` - Channel (0=NO, 1=YES)
+
+### Machining Parameters
+- `DP` - Depth
+- `WSP` - Work speed [mm/min]
+- `RSP` - Rotation speed [rpm]
+- `DSP` - Piercing/lowering speed
+- `IOS` - Approach/output speed
+- `THR` - Through operation (0=disabled, 1=enabled)
+- `BFC` - Chip cleaning by blowing (0=NO, 1=YES)
+- `CRC` - Correction type (0=central, 1=right, 2=left, 5=internal, 6=external)
+
+### Control Parameters
+- `RTY` - Repetition type (-1=none, 0=X, 1=Y, 2=XY, 3=circular)
+- `NRP` - Number of repeats
+- `DX`, `DY` - Step distances
+- `DA` - Angular step
+- `ER` - First item flag
+- `RV` - Reverse flag
 
 ### Panel Dimensions
 - `LPX` - Panel length (X-axis)
 - `LPY` - Panel width (Y-axis)
 - `LPZ` - Panel thickness (Z-axis)
-
-### Tool Parameters
-- `DIA` - Tool diameter
-- `TNM` - Tool name
-- `DP` - Depth of cut
-- `TTP` - Tool type
-
-### Position Parameters
-- `X`, `Y`, `Z` - Coordinates
-- `XE`, `YE`, `ZE` - End coordinates
-- `R` - Radius
-- `A` - Angle
-
-### Machine Parameters
-- `CRN` - Corner reference
-- `SIDE` - Side of panel
-- `DIR` - Direction (dirCW/dirCCW)
-- `THR` - Through cut
 
 ## Examples
 
@@ -131,27 +166,76 @@ BEGIN MACRO
     NAME=ROUT
     PARAM,NAME=ID,VALUE="P1001"
     PARAM,NAME=SIDE,VALUE=0
+    PARAM,NAME=CRN,VALUE="1"
     PARAM,NAME=DIA,VALUE=20
     PARAM,NAME=DP,VALUE=5
     PARAM,NAME=TNM,VALUE="FRESAD20"
+    PARAM,NAME=TTP,VALUE=100
+    PARAM,NAME=TCL,VALUE=1
+    PARAM,NAME=CRC,VALUE=2
+    PARAM,NAME=WSP,VALUE=5000
+    PARAM,NAME=RSP,VALUE=18000
 END MACRO
 ```
 
-### Path Definition
+### Boring Operation
+```cix
+BEGIN MACRO
+    NAME=BG
+    PARAM,NAME=ID,VALUE="P101"
+    PARAM,NAME=SIDE,VALUE=0
+    PARAM,NAME=CRN,VALUE="2"
+    PARAM,NAME=X,VALUE=82.5
+    PARAM,NAME=Y,VALUE=419.0
+    PARAM,NAME=Z,VALUE=0.0
+    PARAM,NAME=DIA,VALUE=8.0
+    PARAM,NAME=DP,VALUE=13.0
+    PARAM,NAME=THR,VALUE=NO
+    PARAM,NAME=RTY,VALUE=rpNO
+END MACRO
+```
+
+### Path Definition with Arc
 ```cix
 BEGIN MACRO
     NAME=START_POINT
-    PARAM,NAME=X,VALUE=100
-    PARAM,NAME=Y,VALUE=100
+    PARAM,NAME=ID,VALUE=91343360
+    PARAM,NAME=X,VALUE=400
+    PARAM,NAME=Y,VALUE=0
     PARAM,NAME=Z,VALUE=0
 END MACRO
 
 BEGIN MACRO
-    NAME=LINE_EP
-    PARAM,NAME=XE,VALUE=300
-    PARAM,NAME=YE,VALUE=100
+    NAME=ARC_EPRA
+    PARAM,NAME=ID,VALUE=121002416
+    PARAM,NAME=XE,VALUE=0
+    PARAM,NAME=YE,VALUE=20
+    PARAM,NAME=R,VALUE=20
+    PARAM,NAME=DIR,VALUE=dirCCW
+END MACRO
+
+BEGIN MACRO
+    NAME=ENDPATH
+    PARAM,NAME=ID,VALUE=90952432
 END MACRO
 ```
+
+### Geometry Creation
+```cix
+BEGIN MACRO
+    NAME=CIRCLE_CR
+    PARAM,NAME=ID,VALUE="CIRCLE1"
+    PARAM,NAME=XC,VALUE=400
+    PARAM,NAME=YC,VALUE=250
+    PARAM,NAME=R,VALUE=50
+    PARAM,NAME=LAY,VALUE="GEOMETRY"
+END MACRO
+```
+
+## Documentation
+
+For a comprehensive reference of all CIX commands and parameters, see:
+- [CIX Command Reference](docs/CIX_COMMAND_REFERENCE.md) - Complete documentation of all 73+ CIX commands
 
 ## Contributing
 
