@@ -1,0 +1,144 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "CIX",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#blocks"
+    },
+    {
+      "include": "#macros"
+    },
+    {
+      "include": "#parameters"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#numbers"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#operators"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.dash.cix",
+          "begin": "^\\s*-",
+          "end": "$"
+        }
+      ]
+    },
+    "blocks": {
+      "patterns": [
+        {
+          "name": "keyword.control.block.cix",
+          "match": "\\b(BEGIN|END)\\b"
+        },
+        {
+          "name": "entity.name.type.block.cix",
+          "match": "\\b(ID|MAINDATA|MACRO|VB|WORKTABLETOOLING)\\b"
+        }
+      ]
+    },
+    "macros": {
+      "patterns": [
+        {
+          "name": "entity.name.function.macro.cix",
+          "match": "\\b(ROUT|BG|LABEL|START_POINT|LINE_EP|ARC_EPRA|ENDPATH|GEO|LINC_EP|ISO|WAIT|WTPLANE|WTTOOL|WTCARRIAGE)\\b"
+        }
+      ]
+    },
+    "parameters": {
+      "patterns": [
+        {
+          "name": "keyword.other.param.cix",
+          "match": "\\bPARAM\\b"
+        },
+        {
+          "name": "variable.parameter.cix",
+          "match": "\\b(NAME|VALUE|ID|SIDE|CRN|X|Y|Z|DP|DIA|TNM|TTP|TCL|CRC|XE|YE|ZE|ZS|R|DIR|SC|FD|SP|SOL|XI|YI|REL|LPX|LPY|LPZ|ORLST|SIMMETRY|TLCHK|TOOLING|CUSTSTR|FCN|XCUT|YCUT|JIGTH|CKOP|UNIQUE|MATERIAL|PUTLST|OPPWKRS|UNICLAMP|CHKCOLL|WTPIANI|COLLTOOL|CALCEDTH|ENABLELABEL|LOCKWASTE|LOADEDGEOPT|ITLTYPE|RUNPAV|FLIPEND|VBLINE|ISO|OPT|RTY|XRC|YRC|DX|DY|A|DA|RDL|NRP|AZ|AR|CKA|THR|RV|CKT|ARP|LRP|ER|COW|OVM|A21|TOS|VTR|DVR|OTR|SVR|COF|DOF|GIP|LSV|S21|AZS|DSP|RSP|IOS|WSP|TIN|AIN|CIN|GIN|TBI|TLI|TQI|TOU|AOU|COU|GOU|TBO|TLO|TQO|DIN|DOU|SDS|PRP|BDR|SPI|SWI|BLW|PRS|BFC|SHP|SWP|CSP|UDT|TDT|DDT|SDT|IDT|FDT|RDT|EA21|CEN|AGG|LAY|EECS|PDIN|PDU|PCIN|PCU|PMOL|AUX|CRR|NEBS|MVT|OBJECT|ANGLE|POS|REF|TYP|OG|RT|MR|UK|SWS|LPV|ROT|DATA)\\b"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.cix",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.cix",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.cix",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            {
+              "name": "constant.character.escape.cix",
+              "match": "\\\\."
+            }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.decimal.cix",
+          "match": "\\b\\d+\\.\\d+\\b"
+        },
+        {
+          "name": "constant.numeric.integer.cix",
+          "match": "\\b\\d+\\b"
+        },
+        {
+          "name": "constant.numeric.negative.cix",
+          "match": "\\b-\\d+(\\.\\d+)?\\b"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "constant.language.boolean.cix",
+          "match": "\\b(YES|NO)\\b"
+        },
+        {
+          "name": "constant.language.enum.cix",
+          "match": "\\b(dirCW|dirCCW|scOFF|scON|rpNO|rpYES|azrNO|azrYES|CID3)\\b"
+        },
+        {
+          "name": "support.constant.cix",
+          "match": "\\$B\\$[^$]*\\$V"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.assignment.cix",
+          "match": "="
+        },
+        {
+          "name": "punctuation.separator.comma.cix",
+          "match": ","
+        }
+      ]
+    }
+  },
+  "scopeName": "source.cix"
+}
